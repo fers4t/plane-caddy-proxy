@@ -20,7 +20,7 @@
 		format json # set access log format to json mode
 	}
 
-	reverse_proxy / {$WEB_ENDPOINT} {
+	reverse_proxy /* {$WEB_ENDPOINT} {
 		header_up Host {upstream_hostport}
 	}
 
