@@ -20,22 +20,17 @@
 		format json # set access log format to json mode
 	}
 
-	reverse_proxy {$FRONTEND_HOST} # proxy all requests for /* to the frontend, configure this variable in the service settings
+	reverse_proxy / {$WEB_ENDPOINT}
 
-	# the handle_path directive WILL strip /api/ from the path before proxying
-	# this is needed if your backend's api routes don't start with /api/
-	# change paths as needed
-	handle_path /api/* {
-		# the /api/ prefix WILL be stripped from the uri sent to the proxy host
-		reverse_proxy {$BACKEND_HOST} # proxy all requests for /api/* to the backend, configure this variable in the service settings
+	handle /api/* {
+		reverse_proxy {$API_ENPOINT}
 	}
 
-	# this handle directive will NOT strip /api/ from the path before proxying
-	# if your backend's api routes do start with /api/ then you wouldn't want to strip the path prefix
-	# if so, comment out the above handle_path and reverse_proxy directives, and uncomment these handle and reverse_proxy directives
-	# change paths as needed
-	# handle /api/* {
-	# the /api/ prefix will NOT be stripped from the uri sent to the proxy host
-	# reverse_proxy {$BACKEND_HOST} # proxy all requests for /api/* to the backend, configure this variable in the service settings
-	# }
+	handle /spaces/* {
+		reverse_proxy {$SPACES_ENDPOINT}
+	}
+
+	handle /{$BUCKET_NAME}/* {
+		reverse_proxy {$BUCKET_ENDPOINT}
+	}
 }
