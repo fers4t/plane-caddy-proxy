@@ -24,7 +24,19 @@
 		header_up Host {upstream_hostport}
 	}
 
+	handle /god-mode/* {
+		reverse_proxy {$ADMIN_ENPOINT} {
+			header_up Host {upstream_hostport}
+		}
+	}
+
 	handle /api/* {
+		reverse_proxy {$API_ENPOINT} {
+			header_up Host {upstream_hostport}
+		}
+	}
+
+	handle /auth/* {
 		reverse_proxy {$API_ENPOINT} {
 			header_up Host {upstream_hostport}
 		}
