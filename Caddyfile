@@ -25,19 +25,19 @@
 	}
 
 	handle /god-mode/* {
-		reverse_proxy {$ADMIN_ENPOINT} {
+		reverse_proxy {$ADMIN_ENDPOINT} {
 			header_up Host {upstream_hostport}
 		}
 	}
 
 	handle /api/* {
-		reverse_proxy {$API_ENPOINT} {
+		reverse_proxy {$API_ENDPOINT} {
 			header_up Host {upstream_hostport}
 		}
 	}
 
 	handle /auth/* {
-		reverse_proxy {$API_ENPOINT} {
+		reverse_proxy {$API_ENDPOINT} {
 			header_up Host {upstream_hostport}
 		}
 	}
